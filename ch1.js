@@ -50,3 +50,60 @@ StringBuilder = function(objectOfWords) {
       sentence.push(key)
   }
 };
+
+
+//1.1
+allUnique = function(str) {
+    checkUniques = str.split('').reduce((acc, cur) => {
+		  if(acc[cur]) {
+        acc[cur] = acc[cur] + 1
+      } else {
+        acc[cur] = 1;
+      }
+      return acc},
+		 {});
+
+	for (key in checkUniques) {
+		if(checkUniques[key] > 1)
+			return false;
+	}
+	return true;
+};
+
+//1.2
+
+function strPermutations(str1, str2) {
+  if(str1.length !== str2.length)
+    return false
+  let holder = str1.split('').reduce((acc, cur) => {
+    if (acc[cur])
+      acc[cur]++
+    else
+      acc[cur] = 1;
+    return acc
+  }, {})
+  str2.split('').reduce((acc, cur) => {
+    if(!acc[cur])
+      return false
+    else {
+      acc[cur]--
+    return acc
+    }
+  }, holder);
+
+  for (key in holder)
+    if (holder[key])
+      return false
+  return true;
+}
+
+//1.3
+
+function URLify (str) {
+    return str.split('').map((ele) => {
+			if(ele === ' ')
+				return ele = '%20';
+			return ele;
+		}).join('');
+
+};
