@@ -107,3 +107,77 @@ function URLify (str) {
 		}).join('');
 
 };
+
+//1.4
+
+palPerm = (str) => {
+  let holder = str.split('').reduce((acc, cur) => {
+    if(acc[cur])
+      acc[cur]++
+    else {
+      acc[cur] = 1
+    }
+    return acc;
+  }, {} );
+  let oddCount = 0;
+  for (key in holder)
+    if(holder[key] % 2)
+      oddCount++
+  if(oddCount > 1)
+    return false
+  return true
+};
+
+//1.5
+// this works but is a bad solution, i should have identified how to keep track of the count earlier
+function oneAway(str1, str2) {
+  let larger = [];
+  let smaller = [];
+  let badCount = 0;
+  let replace = (str1.length === str2.length)
+  if(Math.abs(str1.length - str2.length) > 1)
+    return false;
+  if(replace) {
+    let holder1 = str1.split('');
+    let holder2 = str2.split('');
+    for (let i = 0; i< holder1.length; i++) {
+      if(holder1[i] !== holder2[i])
+        badCount++;
+    }
+  } else {
+    let shorter = str1.length < str2.length ? str1.split('') : str2.split('');
+    let longer = str1.length > str2.length ? str1.split('') : str2.split('');
+    for (let j = 0; j < longer.length; j++) {
+      if (badCount === 1){
+        if(longer[j+1] !== shorter[j]) {
+          return false
+        }
+      } else if(longer[j] !== shorter[j]) {
+        badCount++;
+      }
+    }
+  }
+  if(badCount > 1)
+    return false;
+  else {return true}
+};
+
+//1.6
+strComp = (str) => {
+  let current;
+  let count = 0;
+  let final = '';
+  final = str.split('').reduce((acc, cur) => {
+    if(cur === current)
+      count++;
+    else {
+      if(count)
+        acc = acc + current + count;
+      current = cur;
+      count = 1;
+    }
+    return acc;
+  }, final)
+  final = final + current + count;
+  return final.length >= str.length ? str : final;
+}
