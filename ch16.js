@@ -20,16 +20,27 @@ function wordFreq(word, book) {
   return book.split(' ').search(word);
 }
 
+// multiple times, we'll use a constructor to create a book object, set the title and add words as properties to the word object inside of book
 
 class wordCount {
   constructor(title) {
-    'title' : title,
-     
+    this.title = title;
+     this.words = {};
   };
-  wordCount = () =>
+  wordCount (book) {
+    book.split(' ').map((eachWord) => {
+      return eachWord.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,'').trim();
+    }).map((eachWordIntoObject) => {
+      if(!this.words[eachWordIntoObject]) {
+        this.words[eachWordIntoObject] = 1;
+      } else {
+        this.words[eachWordIntoObject] = this.words[eachWordIntoObject] + 1;
+      }
+    })
+  }
 }
 
-// multiple times, we'll use a constructor to create a book object, set the title and add words as properties to the word object inside of book
+
 
 // 16.3
 // Intersection: Given two straight line segments (represented as a start point and an end point),
@@ -41,9 +52,14 @@ class wordCount {
 // 16.4
 // Tic Tac Win: Design an algorithm to figure out if someone has won a game of tic-tac-toe.
 // Hints: #710, #732
+
+// the game is won when someone has 3 in a row. brute force is to go to each point, check the 8 directions and if the same shape is in that direction go one farther. If you go one farther return true. We could improve it by using some dynamic programming to keep track of the ones we solved already, so we aren't repeating ourselves. bu
+
 // 16.5
 // Factorial Zeros: Write an algorithm which computes the number of trailing zeros in n factorial.
 // Hints: #585, #711, #729, #733, #745
+
+
 // 16.6
 // Smallest Difference: Given two arrays of integers, compute the pair of values (one value in each
 // array) with the smallest (non-negative) difference. Return the difference.
@@ -51,6 +67,13 @@ class wordCount {
 // Input: {1, 3, 15, 11, 2}, {23, 127, 235, 19, 8}
 // Output: 3. That is, the pair (11 , 8).
 // Hints: #632, #670, #679
+// questions does it go first then second? are both arrays the same length? are we staying with 2^31 numbers? or are we using 2^32?
+
+//there is an easy brute force method where we take each of the values in the first array and subtract the value in the second array, absolute value it and if it's less than our current difference keep it. return the current difference at the end.O(n*m)
+
+//  we could sort them and go with O(nlogn + mlogm)
+
+
 // 16.7
 // Number Max: Write a method that finds the maximum of two numbers. You should not use if-else
 // or any other comparison operator.
