@@ -53,12 +53,13 @@ class wordCount {
 // Tic Tac Win: Design an algorithm to figure out if someone has won a game of tic-tac-toe.
 // Hints: #710, #732
 
-// the game is won when someone has 3 in a row. brute force is to go to each point, check the 8 directions and if the same shape is in that direction go one farther. If you go one farther return true. We could improve it by using some dynamic programming to keep track of the ones we solved already, so we aren't repeating ourselves. bu
+// the game is won when someone has 3 in a row. brute force is to go to each point, check the directions, row, col, diag and if the same shape is in that direction go one farther. If you go one farther return true. We could improve it by using some dynamic programming to keep track of the ones we solved already, so we aren't repeating ourselves. bu
 
 // 16.5
 // Factorial Zeros: Write an algorithm which computes the number of trailing zeros in n factorial.
 // Hints: #585, #711, #729, #733, #745
 
+//
 
 // 16.6
 // Smallest Difference: Given two arrays of integers, compute the pair of values (one value in each
@@ -71,7 +72,56 @@ class wordCount {
 
 //there is an easy brute force method where we take each of the values in the first array and subtract the value in the second array, absolute value it and if it's less than our current difference keep it. return the current difference at the end.O(n*m)
 
-//  we could sort them and go with O(nlogn + mlogm)
+function strawberry() {
+  let firstArray = [1, 3, 15, 11, 2]
+  let secondArray = [23, 127, 235, 19, 8]
+  let firstArrayValue;
+  let firstArrayCurrent;
+  let secondArrayCurrent;
+  let secondArrayValue;
+  let difference = 2^31
+
+  for(let firstArrayNum = 0; firstArrayNum < firstArray.length; firstArrayNum++) {
+    for(let secondArrayNum = 0; secondArrayNum < secondArray.length; secondArrayNum++) {
+        firstArrayCurrent = firstArray[firstArrayNum];
+        secondArrayCurrent = secondArray[secondArrayNum];
+        newDifference = Math.abs(firstArrayCurrent-secondArrayCurrent)
+
+      if(newDifference < difference)
+      {
+        firstArrayValue = firstArrayCurrent;
+        secondArrayValue = secondArrayCurrent;
+        difference = newDifference;
+        if(newDifference === 0)
+          return [firstArrayValue, secondArrayValue];
+      }
+    }
+  }
+  return [firstArrayValue, secondArrayValue];
+};
+
+//  we could sort them which costs nlogn, mlogm, {1, 2, 3, 11, 15}, {8, 19, 23, 127, 235}
+// then calculate the min, and only move the smaller one, touching each one so O(n + m)
+
+function blackberry() {
+  let firstArray = [1, 3, 15, 11, 2]
+  let secondArray = [23, 127, 235, 19, 8]
+  let firstArrayValue;
+  let firstArrayCurrent = 0;
+  let secondArrayCurrent = 0;
+  let secondArrayValue;
+  let difference = 2^31
+  let newDifference;
+
+  firstArray = firstArray.sort();
+  secondArray = secondArray.sort();
+  while(difference !== 0){
+    newDifference = (firstArray[firstArrayCurrent]-secondArray[secondArrayCurrent]);
+    if(Math.abs(newDifference)<difference)
+      firstArrayCurrent = 
+  }
+
+}
 
 
 // 16.7
