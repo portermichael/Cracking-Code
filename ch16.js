@@ -105,22 +105,38 @@ function strawberry() {
 
 function blackberry() {
   let firstArray = [1, 3, 15, 11, 2]
-  let secondArray = [23, 127, 235, 19, 8]
+  let secondArray = [23, 27, 35, 19, 8]
   let firstArrayValue;
   let firstArrayCurrent = 0;
   let secondArrayCurrent = 0;
   let secondArrayValue;
-  let difference = 2^31
+  let difference = Math.pow(2,31);
   let newDifference;
 
-  firstArray = firstArray.sort();
-  secondArray = secondArray.sort();
-  while(difference !== 0){
-    newDifference = (firstArray[firstArrayCurrent]-secondArray[secondArrayCurrent]);
-    if(Math.abs(newDifference)<difference)
-      firstArrayCurrent = 
-  }
+  firstArray = firstArray.sort(function(a, b) {
+  return a - b;
+});
+  secondArray = secondArray.sort(function(a, b) {
+  return a - b;
+});
 
+  while(difference !== 0){
+    newDifference = (firstArray[firstArrayCurrent] - secondArray[secondArrayCurrent]);
+    if(Math.abs(newDifference) < Math.abs(difference)) {
+      difference = newDifference;
+      firstArrayValue = firstArray[firstArrayCurrent];
+      secondArrayValue = secondArray[secondArrayCurrent];
+    }
+    if(firstArray[firstArrayCurrent] < secondArray[secondArrayCurrent]) {
+      firstArrayCurrent++;
+    } else {
+      secondArrayCurrent++;
+    }
+    if(firstArrayCurrent >= firstArray.length || secondArrayCurrent >= secondArray.length) {
+      break;
+    }
+  }
+  return [firstArrayValue, secondArrayValue];
 }
 
 
